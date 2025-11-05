@@ -1,26 +1,63 @@
 class Solution {
-    public int[] sortArray(int[] nums) {
-        mergeSort(nums, 0, nums.length - 1);
-        return nums;
-    }
+    public void merge(int[] nums, int s, int m, int e){
+        int n1=m-s+1;
+        int n2=e-m;
+        int arr1[]= new int[n1];
+        int arr2[]=new int[n2];
+        for(int i=0;i<n1;i++){
+            arr1[i]=nums[s+i];
 
-    private void mergeSort(int[] nums, int left, int right) {
-        if (left >= right) return;
-        int mid = left + (right - left) / 2;
-        mergeSort(nums, left, mid);
-        mergeSort(nums, mid + 1, right);
-        merge(nums, left, mid, right);
-    }
-
-    private void merge(int[] nums, int left, int mid, int right) {
-        int[] temp = new int[right - left + 1];
-        int i = left, j = mid + 1, k = 0;
-        while (i <= mid && j <= right) {
-            if (nums[i] <= nums[j]) temp[k++] = nums[i++];
-            else temp[k++] = nums[j++];
         }
-        while (i <= mid) temp[k++] = nums[i++];
-        while (j <= right) temp[k++] = nums[j++];
-        for (int p = 0; p < temp.length; p++) nums[left + p] = temp[p];
+        for(int i=0;i<n2;i++)
+        {
+            arr2[i]=nums[m+1+i];
+
+        }
+        int i=0;
+        int j=0;
+        int k=s;
+        while(i<n1 && j<n2)
+        {
+            if(arr1[i]<arr2[j])
+            {
+                nums[k]=arr1[i];
+                i++;
+                k++;
+
+            }
+            else{
+                nums[k]=arr2[j];
+                k++;
+                j++;
+
+
+            }
+        }
+        while(i<n1)
+        {
+            nums[k]=arr1[i]; k++;
+            i++;
+
+
+        }
+        while(j<n2)
+        {
+            nums[k]=arr2[j];
+            k++;
+            j++;
+        }
     }
-}
+    public void mergesort(int[] nums, int s, int e)
+    {
+        if(s<e){
+        int m=s+(e-s)/2;
+        mergesort(nums,s,m);
+        mergesort(nums,m+1,e);
+        merge(nums,s,m,e);
+        }
+
+    }
+    public int[] sortArray(int[] nums){
+      mergesort(nums,0,nums.length-1);
+      return nums;
+    }}
