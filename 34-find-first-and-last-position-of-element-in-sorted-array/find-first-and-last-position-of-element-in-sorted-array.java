@@ -6,7 +6,7 @@ class Solution {
         return res;
     }
     private static int findFirst(int[] nums, int target, int pos){
-        if(pos==nums.length)
+        if(pos==nums.length|| nums[pos]>target)
         {
             return -1;
         }
@@ -16,7 +16,7 @@ class Solution {
         return findFirst(nums,target,pos+1);
     }
     private static int findLast(int[] nums, int target, int pos){
-        if(pos==-1)
+        if(pos==-1||nums[pos]<target)
         {
             return -1;
         }
