@@ -13,29 +13,23 @@
  *     }
  * }
  */
-import java.util.*;
-
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> result = new ArrayList<>();
-        if (root == null) return result;
-
-        dfs(root, "", result);
-        return result;
+        List<String> ans=new ArrayList<>();
+        String s="";
+        findPath(root,ans,s);
+        return ans;
+        
     }
-
-    private void dfs(TreeNode node, String path, List<String> result) {
-        if (node == null) return;
-
-        path += node.val;
-
-        // if leaf node
-        if (node.left == null && node.right == null) {
-            result.add(path);
+    private static void findPath(TreeNode root,List<String> ans,String s){
+        if(root==null)
+        return;
+        if(root.left==null && root.right==null){
+            s=s+root.val;
+            ans.add(s);
             return;
         }
-        path += "->";
-        dfs(node.left, path, result);
-        dfs(node.right, path, result);
+        findPath(root.left,ans,s+root.val+"->");
+        findPath(root.right,ans,s+root.val+"->");
     }
 }
